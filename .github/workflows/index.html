@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NeoService — Gadget Repair & Accessories</title>
+    <meta name="description" content="Fast gadget repair service plus a curated store of adapters and accessories. Free diagnostics, warranty, home service, original parts." />
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <!-- AOS CSS (optional) -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+    <!-- App CSS -->
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <header class="header">
+      <div class="header__container">
+        <a href="#home" class="header__logo logo" aria-label="NeoService Home">
+          <picture>
+              <source srcset="./img/logo-mobile.PNG" style="height:40px" media="(max-width: 768px)">
+              <img src="./img/logo.PNG" alt="NeoService" style="height:50px">
+          </picture>
+        </a>
+        <button class="burger" aria-label="Открыть меню">
+          <span class="burger__line top"></span>
+          <span class="burger__line middle"></span>
+          <span class="burger__line bottom"></span>
+        </button>
+        <div class="header__right" style="display:flex; align-items:center; gap:12px;">
+          <div class="lang-switch" id="lang-switch" aria-label="Language switcher">
+            <button class="lang-btn" id="lang-btn" aria-haspopup="listbox" aria-expanded="false">EN</button>
+            <ul class="lang-list" id="lang-list" role="listbox" aria-label="Choose language">
+              <li role="option" data-lang="ru">RU</li>
+              <li role="option" data-lang="en">EN</li>
+              <li role="option" data-lang="ro">RO</li>
+            </ul>
+          </div>
+          <a class="cta-phone" id="cta-phone" href="tel:+37360504199" aria-label="Call us +373 605 04 199">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 12 19a19.5 19.5 0 0 1-8-8A19.79 19.79 0 0 1 2.08 4 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.62 2.61a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.47-1.47a2 2 0 0 1 2.11-.45c.84.29 1.71.5 2.61.62A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <div class="menu-container">
+      <div class="menu-line"></div>
+      <div class="menu-inner">
+        <a href="#home" class="menu-logo" aria-label="NeoService">
+          <img src="./img/logo.png" alt="NeoService" />
+        </a>
+        <div class="menu-left">
+          <h2>Меню</h2>
+          <ul>
+            <li><a class="nav-link" href="#home" data-hover="Главная">Главная</a></li>
+            <li><a class="nav-link" href="#repair" data-hover="Ремонт">Ремонт</a></li>
+            <li><a class="nav-link" href="#store" data-hover="Магазин">Магазин</a></li>
+            <li><a class="nav-link" href="#about" data-hover="О нас">О нас</a></li>
+            <li><a class="nav-link" href="#promotions" data-hover="Акции">Акции</a></li>
+            <li><a class="nav-link" href="#contacts" data-hover="Контакты">Контакты</a></li>
+          </ul>
+          <div class="menu-divider"></div>
+          <div class="menu-contacts">
+            <h4>Телефон</h4>
+            <p><a href="tel:+37360504199">+373-605-04-199</a></p>
+            <h4>Адрес</h4>
+            <p>City, Main Street, 42</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <main id="home" class="smooth-wrapper">
+      <div class="smooth-content">
+        <!-- Hero -->
+        <section class="section hero" aria-label="Hero">
+          <div class="hero-inner">
+            <h1 class="hero-title">Fast, reliable gadget repair.</h1>
+            <p class="hero-sub">Original parts, skilled techs, and a full store of adapters & accessories.</p>
+            <div class="hero-actions">
+              <button class="btn primary" data-open="feedback-modal">Get a quote</button>
+            </div>
+          </div>
+          <!-- Background placeholders: -->
+          <!--
+            Place <video autoplay muted loop playsinline> here if needed
+            Or set a CSS background-image on .hero
+          -->
+        </section>
+
+        <!-- Repair Slider -->
+        <section id="repair" class="section repair">
+          <div class="section-heading">
+            <h2>Repair</h2>
+          </div>
+          <div class="repair-slider">
+            <div class="swiper repair-swiper">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" data-kind="smartphones">
+                  <div class="slide-visual"><img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800&q=70&auto=format&fit=crop" alt="Smartphones" /></div>
+                  <button class="btn ghost" data-open="feedback-modal">Fix my phone</button>
+                </div>
+                <div class="swiper-slide" data-kind="tablets">
+                  <div class="slide-visual"><img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=800&q=70&auto=format&fit=crop" alt="Tablets" /></div>
+                  <button class="btn ghost" data-open="feedback-modal">Fix my tablet</button>
+                </div>
+                <div class="swiper-slide" data-kind="laptops">
+                  <div class="slide-visual"><img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=800&q=70&auto=format&fit=crop" alt="Laptops" /></div>
+                  <button class="btn ghost" data-open="feedback-modal">Fix my laptop</button>
+                </div>
+                <div class="swiper-slide" data-kind="computers">
+                  <div class="slide-visual"><img src="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?w=800&q=70&auto=format&fit=crop" alt="Computers" /></div>
+                  <button class="btn ghost" data-open="feedback-modal">Fix my PC</button>
+                </div>
+              </div>
+              <div class="swiper-pagination"></div>
+              <div class="swiper-button-prev"></div>
+              <div class="swiper-button-next"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Store -->
+        <section id="store" class="section store">
+          <div class="store-intro">
+            <div class="store-intro-media" aria-hidden="true">
+              <img src="https://images.unsplash.com/photo-1526401281623-359c1a163dac?w=900&q=70&auto=format&fit=crop" alt="Adapters & accessories" />
+            </div>
+            <div class="store-intro-text">
+              <h2>Adapters & Accessories</h2>
+              <p>Shop essentials for your devices: chargers, cables, cases, audio, and more. Handpicked, tested, and warrantied for your peace of mind.</p>
+            </div>
+          </div>
+
+          <div class="accessories-gallery">
+            <button class="gallery-arrow left" aria-label="Previous">
+              <span></span>
+            </button>
+            <div class="gallery-track" id="gallery-track" aria-live="polite" aria-roledescription="carousel"></div>
+            <button class="gallery-arrow right" aria-label="Next">
+              <span></span>
+            </button>
+          </div>
+        </section>
+
+        <!-- About -->
+        <section id="about" class="section about">
+          <div class="about-intro">
+            <div class="about-intro-text">
+              <h2>About Us</h2>
+              <p>We are certified technicians with thousands of successful repairs. We diagnose for free, use original parts, and back our work with a 24-month warranty.</p>
+            </div>
+            <div class="about-intro-media" aria-hidden="true">
+              <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=70&auto=format&fit=crop" alt="Our lab" />
+            </div>
+          </div>
+
+          <ul class="features">
+            <li><span class="icon" data-emoji="🔍"></span><span>Free diagnostics</span></li>
+            <li><span class="icon" data-emoji="🛡️"></span><span>2-year warranty</span></li>
+            <li><span class="icon" data-emoji="🏠"></span><span>Home service</span></li>
+            <li><span class="icon" data-emoji="👨‍🔧"></span><span>Best specialists</span></li>
+            <li><span class="icon" data-emoji="✨"></span><span>Original spare parts</span></li>
+            <li><span class="icon" data-emoji="⚙️"></span><span>Advanced support</span></li>
+          </ul>
+
+          <div id="promotions" class="promo-banner" role="img" aria-label="Promotional banner">
+            <div class="promo-content">
+              <strong>Seasonal Offer:</strong> 10% off screen replacements this month.
+            </div>
+          </div>
+        </section>
+
+        <!-- Contacts -->
+        <section id="contacts" class="section contacts">
+          <div class="contact-form-block">
+            <h2>Get in touch</h2>
+            <form id="feedback-form" class="feedback-form" novalidate>
+              <label>
+                <span>Name</span>
+                <input type="text" name="name" required maxlength="60" />
+              </label>
+              <label>
+                <span>Phone</span>
+                <input type="tel" name="phone" required maxlength="20" />
+              </label>
+              <label>
+                <span>Short description</span>
+                <textarea name="desc" rows="3" maxlength="70" placeholder="Up to 70 characters"></textarea>
+              </label>
+              <button type="submit" class="btn primary">Send</button>
+            </form>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <a href="#home" class="logo">
+          <img src="./IMG/logo.png" alt="NeoService" style="height:24px" />
+        </a>
+        <p class="copyright">© <span id="year"></span> NeoService. All rights reserved.</p>
+        <a class="footer-phone" href="tel:+37360504199">+373-605-04-199</a>
+        <button class="btn ghost" data-open="feedback-modal">Feedback</button>
+      </div>
+    </footer>
+
+    <!-- Feedback Modal -->
+    <div class="modal" id="feedback-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="feedback-title">
+      <div class="modal-backdrop" data-close></div>
+      <div class="modal-window glass">
+        <button class="modal-close" aria-label="Close" data-close>&times;</button>
+        <h3 id="feedback-title">Feedback</h3>
+        <form id="feedback-modal-form" class="feedback-form" novalidate method="POST">
+          <label>
+            <span>Name</span>
+            <input type="text" name="name" required maxlength="60" />
+          </label>
+          <label>
+            <span>Phone</span>
+            <input type="tel" name="phone" required maxlength="20" />
+          </label>
+          <label>
+            <span>Short description</span>
+            <textarea name="desc" rows="3" maxlength="70" placeholder="Up to 70 characters"></textarea>
+          </label>
+          <button type="submit" class="btn primary">Send</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal" id="confirm-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+      <div class="modal-backdrop" data-close></div>
+      <div class="modal-window glass confirm-window">
+        <button class="modal-close" aria-label="Close" data-close>&times;</button>
+        <div class="confirm-content">
+          <h3 id="confirm-title">Thank you!</h3>
+          <p>A manager will contact you within 5–10 minutes.</p>
+          <button class="confirm-close" id="confirm-close" aria-label="Close">
+            <span class="progress-ring" id="progress-ring"></span>
+            <span class="confirm-close-label">Close</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Products Modal (category slider) -->
+    <div class="modal" id="products-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="products-title">
+      <div class="modal-backdrop" data-close></div>
+      <div class="modal-window glass products-window">
+        <button class="modal-close" aria-label="Close" data-close>&times;</button>
+        <h3 id="products-title">Products</h3>
+        <div class="swiper products-swiper">
+          <div class="swiper-wrapper" id="products-swiper-wrapper"></div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js" defer></script>
+    <!-- ScrollSmoother (will gracefully fallback if not loaded) -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollSmoother.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/CustomEase.min.js" defer></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js" defer></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" defer></script>
+    <script src="./js/main.js" defer></script>
+  </body>
+  </html>
+
