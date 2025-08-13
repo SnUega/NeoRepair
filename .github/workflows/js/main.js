@@ -203,7 +203,7 @@
   
     // Accessories gallery data rendered from JS
     const categories = [
-      { id: 'adapters', title: 'Adapters', img: 'https://images.unsplash.com/photo-1520975922284-7b99cf8c4f68?w=800&q=70&auto=format&fit=crop', products: [
+      { id: 'adapters', title: 'Adapters', img: '../img/adapter-1.png', products: [
         { title: 'USB-C 65W GaN Charger', img: 'https://images.unsplash.com/photo-1551727974-8af20a3322e0?w=1200&q=60&auto=format&fit=crop', specs: ['65W PD', 'Dual USB-C', 'EU plug'] },
         { title: 'USB-C to Lightning Cable', img: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=1200&q=60&auto=format&fit=crop', specs: ['MFi certified', '1m length'] },
       ] },
