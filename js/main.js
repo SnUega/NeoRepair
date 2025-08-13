@@ -95,6 +95,43 @@
           burger.classList.remove('active');
         }
       });
+
+      // Close menu when clicking a navigation link and then smooth-scroll to target
+      function closeMenuAnd(fnAfter) {
+        if (!menuContainer.classList.contains('active')) { fnAfter && fnAfter(); return; }
+        menuContainer.classList.remove('show-content');
+        menuContainer.classList.add('hide-content');
+        if (menuLine) menuLine.style.animation = 'shrinkLine 0.6s forwards';
+        setTimeout(() => {
+          menuContainer.classList.remove('active', 'line-animate', 'hide-content', 'hide-line', 'content-appear');
+          if (menuLine) menuLine.style.animation = '';
+          body.style.overflow = '';
+          body.classList.remove('menu-open');
+          burger.classList.remove('active');
+          fnAfter && fnAfter();
+        }, 600);
+      }
+
+      menuContainer.addEventListener('click', (e) => {
+        const link = e.target.closest('.menu-left a[href]');
+        if (!link) return;
+        const href = link.getAttribute('href') || '';
+        e.preventDefault();
+        e.stopPropagation();
+        const isHash = href.startsWith('#') && href.length > 1;
+        const target = isHash ? qs(href) : null;
+        closeMenuAnd(() => {
+          if (target) {
+            if (window.gsap && window.ScrollToPlugin) {
+              window.gsap.to(window, { duration: 0.6, scrollTo: target, ease: 'power2.out' });
+            } else {
+              target.scrollIntoView({ behavior: 'smooth' });
+            }
+          } else if (href && !href.startsWith('#')) {
+            window.location.href = href;
+          }
+        });
+      });
     }
   
     // Remove AOS init; GSAP handles all animations now
@@ -428,6 +465,24 @@
         if (e.target.matches('[data-close]')) closeModal(modal);
       });
     });
+
+  // Modal close button hover in/out rotation
+  qsa('.modal .modal-close').forEach((btn) => {
+    btn.addEventListener('mouseenter', () => {
+      btn.classList.remove('is-rotating-out');
+      // restart animation
+      // eslint-disable-next-line no-unused-expressions
+      btn.offsetWidth;
+      btn.classList.add('is-rotating-in');
+    });
+    btn.addEventListener('mouseleave', () => {
+      btn.classList.remove('is-rotating-in');
+      // restart animation
+      // eslint-disable-next-line no-unused-expressions
+      btn.offsetWidth;
+      btn.classList.add('is-rotating-out');
+    });
+  });
   
     // Submit handlers for forms: show confirmation with 3s ring
     function handleSubmit(e) {
@@ -478,6 +533,15 @@
       const r = btn.getBoundingClientRect();
       btn.style.setProperty('--x', `${e.clientX - r.left}px`);
       btn.style.setProperty('--y', `${e.clientY - r.top}px`);
+    }, { passive: true });
+
+    // Ripple origin for lang and phone buttons too
+    document.addEventListener('mousemove', (e) => {
+      const el = e.target.closest('.lang-btn, .cta-phone');
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      el.style.setProperty('--x', `${e.clientX - r.left}px`);
+      el.style.setProperty('--y', `${e.clientY - r.top}px`);
     }, { passive: true });
   
     // Swipe support for Swiper already included by Swiper itself

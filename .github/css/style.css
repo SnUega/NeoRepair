@@ -173,9 +173,7 @@
     padding: 0.3em 0; 
     letter-spacing: 1px; 
   }
-  .menu-left a .nav-link {
-    letter-spacing: 6px;
-  }
+
   .menu-left a:before, .menu-left a:after { content: none; }
   .menu-left li:hover a { transform: none; }
   .menu-divider { width: min(420px, 80%); height: 1px; background: rgba(0,0,0,0.2); margin: 16px 0; }
@@ -359,6 +357,7 @@ body {
     padding: 0 0;
     font-size: 32px;
     text-align: center;
+    color: #ffffff;
   }
   
   .hero {
@@ -389,7 +388,7 @@ body {
   }
   /* Repair Slider */
 .repair {
-  background: #ff2f2f 50%;
+  background: rgba(255, 47, 47, 0.92);;
   height: 100vh;
 }
   .repair .repair-slider {
@@ -623,7 +622,7 @@ body {
   
   /* About */
   .about {
-    background-color: #ff2f2f;
+    background-color: rgba(255, 47, 47, 0.92);;
     color: #ffffff;
   }
   .about .about-intro {
@@ -650,13 +649,13 @@ body {
   }
   
   .about .about-intro-text p {
-    color: var(--muted);
+    color: #ffffff;
   }
   
   .features {
     list-style: none;
     padding: 0;
-    margin: 24px auto;
+    margin: 5rem auto;
     max-width: 1200px;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
@@ -753,7 +752,7 @@ body {
     padding: 28px 16px;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
     color: #ffffff;
-    background: #ff2f2f;
+    background: rgba(255, 47, 47, 0.95);
     backdrop-filter: blur(0);
   }
   
@@ -837,15 +836,22 @@ body {
     background: rgba(255, 47, 47, 0.08);
     color: var(--fg);
     z-index: 1;
+    transform-origin: center;
+    font-size: 28px;
+    font-weight: 300;
+    line-height: 1;
   }
-  .modal-close:hover { transform: rotate(90deg) scale(1.05); transition: transform .25s ease; }
-  .modal-close { font-size: 20px; line-height: 1; }
+  /* Rotation animations for hover in/out */
+  .modal-close.is-rotating-in { animation: modalCloseRotateIn .25s ease forwards; }
+  .modal-close.is-rotating-out { animation: modalCloseRotateOut .25s ease forwards; }
+  @keyframes modalCloseRotateIn { from { transform: rotate(0deg); } to { transform: rotate(90deg); } }
+  @keyframes modalCloseRotateOut { from { transform: rotate(90deg); } to { transform: rotate(0deg); } }
   
   .modal .feedback-form { padding: 20px; max-width: 460px; margin: 0 auto; text-align: center; }
   .modal-window.glass { padding-top: 30px; padding-bottom: 60px; }
   .modal-window.glass .modal-close { transform-origin: center; }
   .modal-window.glass h3 { text-align: center; }
-  .modal-window.glass .feedback-form { margin-left: 45px; margin-right: 45px; }
+  .modal-window.glass .feedback-form { margin: 0 auto; }
   
   .confirm-window {
     padding: 30px;
