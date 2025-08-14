@@ -205,7 +205,11 @@
     transform: translateY(-8px);
     transition: opacity .45s ease, transform .45s ease;
   }
-  .menu-container.content-appear .menu-left h2 { opacity: 1; transform: none; transition-delay: .1s; }
+  .menu-container.content-appear .menu-left h2 {
+     opacity: 1; 
+     transform: none; 
+     transition-delay: .1s; 
+    }
   .menu-container.content-appear .menu-left ul li:nth-child(1) { opacity: 1; transform: none; transition-delay: .18s; }
   .menu-container.content-appear .menu-left ul li:nth-child(2) { opacity: 1; transform: none; transition-delay: .26s; }
   .menu-container.content-appear .menu-left ul li:nth-child(3) { opacity: 1; transform: none; transition-delay: .34s; }
@@ -220,10 +224,49 @@
   .lang-switch { position: relative; display: inline-block; }
   .lang-btn { width: 40px; height: 40px; border-radius: 50%; border: 1px solid #000000; background: var(--accent); color: #000000; }
   .lang-btn.is-active, .lang-btn:hover { background: #ffffff; color: #ff2f2f; border: 1px solid #ff2f2f;}
-  .lang-list { position: absolute; left: 50%; transform: translateX(-50%); width: 100%; top: calc(100% + 6px); list-style: none; margin: 0; padding: 6px; border-radius: 12px; border: 1px solid #ff2f2f; background: #ffffff; display: none; text-align: center; }
+  /* Animated dropdown emerging from the button */
+  .lang-list {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    transform-origin: 50% 0%;
+    will-change: height, opacity;
+    transition: height 0.8s cubic-bezier(0.22, 0.61, 0.36, 1), opacity .6s ease;
+    width: 100%;
+    top: 0%; /* без разрыва, примыкает к кнопке */
+    list-style: none;
+    margin: 0;
+    padding: 6px;
+    border-radius: 25px;
+    border: 1px solid #ff2f2f;
+    background: rgba(255, 255, 255, 0.25);
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end; /* пункты прижаты к низу */
+    z-index: 10;
+    opacity: 0;
+    overflow: hidden;
+    height: 0; /* закрыто по умолчанию */
+    pointer-events: none;
+  }
+  /* внутренняя разделительная граница под кнопкой для визуального разграничения */
+  .lang-list::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 8px;
+    right: 8px;
+    height: 1px;
+    background: rgba(255, 47, 47, 0.7);
+    pointer-events: none;
+  }
+  /* Add inner top space so content starts below button edge */
+  .lang-list li:first-child { padding-top: 10px; }
   .lang-list li { padding: 6px 10px; border-radius: 8px; cursor: pointer; color: var(--accent); text-align: center; }
   .lang-list li:hover { background: var(--accent); color: #ffffff; border: 1px solid #ff2f2f;}
-  .lang-switch.open .lang-list { display: block; }
+  .lang-switch.open .lang-list { pointer-events: auto; }
   .cta-phone { display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid #000000; background: var(--accent); color: #000000;margin-left: 1rem; margin-right: 2rem;}
   .cta-phone:hover { background: #ffffff; color: #ff2f2f; border: 1px solid #ff2f2f; }
   .cta-phone svg { width: 40px; height: 40px; padding: 10px; border-radius: 50%; background: transparent; transform-origin: center; color: #000000; fill: currentColor; }
@@ -379,6 +422,11 @@ body {
   background: rgba(255, 47, 47, 0.92);;
   height: 100vh;
 }
+
+/* Lock body scroll when products modal is open */
+body.modal-open {
+  overflow: hidden;
+}
   .repair .repair-slider {
     max-width: 75%;
     margin: -12vh auto 0;
@@ -415,8 +463,8 @@ body {
   }
   
   .repair .slide-visual img {
-    max-width: 40%;
-    max-height: 50%;
+    max-width: 65%;
+    max-height: 65%;
     object-fit: contain;
   }
   
@@ -439,7 +487,7 @@ body {
   
 .repair .btn {
   position: absolute;
-  top: 92%;
+  top: 94%;
   left: 50%;
   padding: 20px 15px;
   transform: translateX(-50%);
@@ -486,14 +534,17 @@ body {
     object-fit: cover;
     box-shadow: 0 10px 30px rgba(0,0,0,0.25);
   }
+  .store .store-intro-text {
+    padding: 2.5rem;
+    margin: 2.5rem;
+  }
   
   .store .store-intro-text h2 {
-    margin: 0 350px 8px;
+    margin: 0 0 8px;
   }
   
   .store .store-intro-text p {
-    margin-left: 400px;
-    max-width: 520px;
+    margin: 0;
     color: var(--muted);
   }
   
@@ -566,8 +617,11 @@ body {
 }
   
   .acc-card .acc-media {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
+    z-index: 1;
   }
   
   .acc-card .acc-media img {
@@ -575,12 +629,39 @@ body {
     height: 100%;
     object-fit: cover;
   }
+
+  /* Title glass curtain at top center */
+  .acc-card .acc-title {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: var(--curtain-w, auto);
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--glass-stroke);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+  }
+  .acc-card .acc-title-text { margin: 0; line-height: 1.2; white-space: nowrap; }
   
   .acc-card .acc-info {
-    padding: 14px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: max(1rem, env(safe-area-inset-bottom));
+    padding: 0 14px;
     display: grid;
     gap: 10px;
+    place-items: center;
     background: transparent;
+    z-index: 2;
   }
   
   .acc-card h4 {
@@ -589,10 +670,8 @@ body {
   
   .acc-card button {
     justify-self: center;
-  }
-
-  .acc-card button:hover {
-    background-color: #fd4343;
+    background: rgba(255, 255, 255, 0.5);
+    color: #ff2f2f;
   }
   
 .acc-card.is-center {
@@ -636,10 +715,13 @@ body {
     height: 100%;
     object-fit: cover;
   }
+  .about .about-intro-text {
+    padding: 2.5rem;
+    margin: 2.5rem;
+  }
   
   .about .about-intro-text p {
     color: #ffffff;
-    max-width: 520px;
   }
   
   .features {
@@ -812,7 +894,7 @@ body {
     backdrop-filter: blur(10px);
     transform: translateY(12px) scale(.98);
     opacity: 0;
-    overflow: hidden;
+    overflow: auto;
     color: #ff2f2f;
   }
   
@@ -897,7 +979,7 @@ body {
   .products-window h3 { margin: 4px 44px 10px 4px; }
   
   .products-window .swiper {
-    height: 70vh;
+      height: 55vh;
   }
   
   .product-card {
@@ -906,12 +988,12 @@ body {
     border: 1px solid var(--glass-stroke);
     overflow: hidden;
     display: grid;
-    grid-template-rows: 1fr auto;
+    grid-template-rows: 0.7fr 0.3fr;
     background: transparent;
   }
   
   .product-media {
-    height: 100%;
+    height: 70%;
     overflow: hidden;
   }
   
@@ -959,10 +1041,16 @@ body {
   @media (max-width: 960px) {
     .features {
       grid-template-columns: repeat(3, 1fr);
+      margin-bottom: 6rem;
     }
   
     .store .store-intro {
       grid-template-columns: 1fr;
+    }
+    .store .store-intro-text,
+    .about .about-intro-text {
+      padding: 2rem;
+      margin: 1.5rem;
     }
   
     .store .store-intro-media,
@@ -1011,14 +1099,25 @@ body {
   }
   
   @media (max-width: 768px) {
+    .promo-banner {
+      margin-top: 3.5rem;
+      margin-bottom: 3.5rem;
+    }
     .features {
       grid-template-columns: repeat(2, 1fr);
+      margin-bottom: 7rem;
     }
   
     /* Gallery: convert to horizontal scroll list on mobile */
+    .store .store-intro-text,
+    .about .about-intro-text {
+      padding: 1.5rem;
+      margin: 1rem;
+    }
     .accessories-gallery {
       grid-template-columns: 1fr;
       gap: 12px;
+      margin-bottom: 64px;
     }
     .gallery-arrow {
       display: none;
@@ -1086,9 +1185,10 @@ body {
     .section.repair,
     .section.store,
     .section.about {
-      height: 100svh;
+      min-height: 100svh;
+      height: auto;
       padding-top: 16px;
-      padding-bottom: 16px;
+      padding-bottom: 32px;
     }
 
     /* Repair slider on mobile: landscape-style, full width */
