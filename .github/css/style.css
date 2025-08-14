@@ -96,8 +96,10 @@
     transition: height 0.3s ease;
     z-index: 55;
     border-radius: 50px;
+    pointer-events: none;
+    visibility: hidden;
   }
-  .menu-container.active { height: 75vh; }
+  .menu-container.active { height: 75vh; visibility: visible; pointer-events: auto; }
   .menu-line {
     position: absolute;
     top: 0;
@@ -107,6 +109,7 @@
     height: 0;
     transform: translateX(-50%);
     z-index: 56;
+    pointer-events: none;
   }
   .menu-container .menu-line { transition: opacity .3s ease; }
   .menu-container.line-animate .menu-line { animation: growLine 0.45s forwards; }
@@ -137,6 +140,7 @@
     clip-path: polygon(50% 0, 50% 0, 50% 100%, 50% 100%); 
     transition: clip-path 0.6s ease; 
   }
+  .menu-container.hide-content { pointer-events: none; }
   .menu-left, .menu-right { 
     flex: 0 1 auto; 
     padding: 40px; 
@@ -484,11 +488,12 @@ body {
   }
   
   .store .store-intro-text h2 {
-    margin: 0 0 8px;
+    margin: 0 350px 8px;
   }
   
   .store .store-intro-text p {
-    margin: 0;
+    margin-left: 400px;
+    max-width: 520px;
     color: var(--muted);
   }
   
@@ -630,11 +635,11 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-     box-shadow: 0 10px 30px rgba(0,0,0,0.25);
   }
   
   .about .about-intro-text p {
     color: #ffffff;
+    max-width: 520px;
   }
   
   .features {
@@ -784,6 +789,10 @@ body {
   
   .modal[aria-hidden="false"] {
     pointer-events: auto;
+  }
+  .modal[aria-hidden="true"] .modal-backdrop,
+  .modal[aria-hidden="true"] .modal-window {
+    pointer-events: none;
   }
   
   .modal-backdrop {
@@ -1055,12 +1064,15 @@ body {
     .menu-container {
       width: 90%;
       left:5%;
+      pointer-events: none;
     }
     .menu-container.active {
       height: 95vh;
+      pointer-events: auto;
     }
     .menu-logo {
         left: 25%;
+        top: 2%;
     }
     .header__logo {
         margin-left: 0.5rem;
