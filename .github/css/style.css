@@ -280,6 +280,33 @@
     40% { transform: rotate(0deg); }
     100% { transform: rotate(0deg); }
   }
+  /* Ripple hover for lang button and phone button (white fill, red text/border) */
+  .lang-btn, .cta-phone {
+    position: relative;
+    overflow: hidden;
+    z-index: 0; /* ensure ::before can sit behind content with z-index -1 */
+  }
+  .lang-btn::before, .cta-phone::before {
+    content: '';
+    position: absolute;
+    top: var(--y, 50%);
+    left: var(--x, 50%);
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    background-color: #ffffff;
+    border-radius: 50%;
+    transition: width 0.9s ease, height 0.9s ease;
+    pointer-events: none;
+    z-index: -1;
+  }
+  .lang-btn:hover::before, .cta-phone:hover::before {
+    width: 300px;
+    height: 300px;
+  }
+  /* Ensure hover colors match requirement */
+  .lang-btn:hover { background: #ffffff; color: #ff2f2f; border-color: #ff2f2f; position: relative; z-index: 0; }
+  .cta-phone:hover { background: #ffffff; color: #ff2f2f; border-color: #ff2f2f; position: relative; z-index: 0; }
   
   * {
     box-sizing: border-box;
@@ -360,6 +387,62 @@ body {
     border-color: var(--accent);
     font-weight: 700;
   }
+
+/* Hero + forms primary button hover ripple (accent red) */
+.hero .btn.primary,
+.contacts .btn.primary,
+.modal .btn.primary {
+  position: relative;
+  overflow: hidden;
+  border-radius: 25px;
+}
+.hero .btn.primary > span,
+.contacts .btn.primary > span,
+.modal .btn.primary > span { position: relative; z-index: 1; }
+.hero .btn.primary::before,
+.contacts .btn.primary::before,
+.modal .btn.primary::before {
+  content: '';
+  position: absolute;
+  top: var(--y, 50%);
+  left: var(--x, 50%);
+  transform: translate(-50%, -50%);
+  width: 0;
+  height: 0;
+  background-color: #ff2f2f;
+  border-radius: 50%;
+  transition: width 0.9s ease, height 0.9s ease;
+}
+.hero .btn.primary:hover::before,
+.contacts .btn.primary:hover::before {
+  /* larger radius so it fully fills the narrower button */
+  width: 520px;
+  height: 520px;
+}
+.modal .btn.primary:hover::before {
+  /* larger radius for modal button */
+  width: 420px;
+  height: 420px;
+}
+.hero .btn.primary:hover,
+.contacts .btn.primary:hover,
+.modal .btn.primary:hover { color: #ffffff; border-color: #ff2f2f; }
+
+/* Form buttons sizing and centering */
+.contacts .btn.primary {
+  margin-top: 1.2rem;
+  width: 65%; /* reduced by ~55% of full width */
+  justify-self: center;
+}
+.modal .btn.primary {
+  width: 70%; /* reduced by ~30% of full width */
+  justify-self: center;
+}
+
+/* Narrower feedback modal window (~35% reduction) */
+#feedback-modal .modal-window {
+  width: min(572px, 60vw);
+}
   
   .btn.ghost {
     color: var(--fg);
@@ -438,8 +521,8 @@ body.modal-open {
   
 .repair .swiper-slide {
   position: relative;
-  width: 60%;
-  height: 75vh;
+  width: clamp(720px, 60%, 1080px);
+  height: clamp(520px, 75vh, 860px);
   border-radius: 18px;
   background: transparent;
   overflow: hidden;
@@ -463,10 +546,24 @@ body.modal-open {
   }
   
   .repair .slide-visual img {
-    max-width: 65%;
-    max-height: 65%;
-    object-fit: contain;
+  max-width: min(780px, 72%);
+  max-height: 72%;
+  object-fit: contain;
   }
+
+/* Tablets slide: rotate 90deg CCW across all devices */
+.repair .swiper-slide[data-kind="tablets"] .slide-visual img {
+  transform: rotate(-90deg) scale(0.9);
+  transition: transform 0.5s ease;
+  will-change: transform;
+}
+
+/* Style first slide (smartphones): rotate and scale down to match others */
+.repair .swiper-slide[data-kind="smartphones"] .slide-visual img {
+  transform: rotate(70deg) scale(0.82) translateY(-14rem) translateX(-2rem);
+  transition: transform 0.5s ease;
+  will-change: transform;
+}
   
 .repair h3 {
   position: absolute;
@@ -487,11 +584,10 @@ body.modal-open {
   
 .repair .btn {
   position: absolute;
-  top: 94%;
   left: 50%;
   padding: 20px 15px;
   transform: translateX(-50%);
-  bottom: 2rem;
+  bottom: 1.2rem;
   background: transparent !important;
   color: #000000 !important;
   border: 1px solid #000000 !important;
@@ -564,6 +660,8 @@ body.modal-open {
   position: relative;
   height: 55vh;
   overflow: visible;
+  touch-action: pan-y;
+  cursor: grab;
 }
   
   .gallery-arrow {
@@ -604,6 +702,7 @@ body.modal-open {
   --dx: 0px;
   --dy: 0px;
   --scale: 0.85;
+  --bright: 1;
   transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(var(--scale));
   border-radius: 16px;
   border: 1px solid var(--glass-stroke);
@@ -614,6 +713,7 @@ body.modal-open {
   transition: none;
   will-change: transform, opacity, filter;
   text-align: center;
+  filter: brightness(var(--bright, 1));
 }
   
   .acc-card .acc-media {
@@ -687,6 +787,12 @@ body.modal-open {
 /* Disable transition on initial layout to avoid jump-in */
 .gallery-track.is-initial .acc-card {
   transition: none !important;
+}
+
+/* Drag affordance (desktop/tablet) */
+.gallery-track.is-dragging {
+  cursor: grabbing;
+  user-select: none;
 }
   
   /* About */
@@ -858,6 +964,34 @@ body.modal-open {
   @media (max-width: 680px) {
     .site-footer .btn.ghost[data-open="feedback-modal"] { top: -2px; }
   }
+
+/* Footer Feedback button ripple: white fill, red text/border */
+.site-footer .btn.ghost[data-open="feedback-modal"] {
+  position: absolute;
+  overflow: hidden;
+  border-radius: 25px;
+}
+.site-footer .btn.ghost[data-open="feedback-modal"] > span { position: relative; z-index: 1; }
+.site-footer .btn.ghost[data-open="feedback-modal"]::before {
+  content: '';
+  position: absolute;
+  top: var(--y, 50%);
+  left: var(--x, 50%);
+  transform: translate(-50%, -50%);
+  width: 0;
+  height: 0;
+  background-color: #ffffff;
+  border-radius: 50%;
+  transition: width 0.9s ease, height 0.9s ease;
+}
+.site-footer .btn.ghost[data-open="feedback-modal"]:hover::before {
+  width: 300px;
+  height: 300px;
+}
+.site-footer .btn.ghost[data-open="feedback-modal"]:hover {
+  color: #ff2f2f !important;
+  border-color: #ff2f2f !important;
+}
   
   /* Modals */
   .modal {
@@ -1076,12 +1210,12 @@ body.modal-open {
     }
 
     /* Repair slider sizing */
-    .repair .repair-slider {
-      max-width: 92%;
-    }
-    .repair .swiper-slide {
-      width: 80%;
-    }
+    .repair .repair-slider { max-width: 92%; }
+    .repair .swiper { height: 65vh; }
+    .repair .swiper-slide { width: 85%; height: 55vh; }
+    .repair .slide-visual img { max-width: 75%; max-height: 75%; }
+    /* Tablets: lift smartphones image by ~10rem */
+    .repair .swiper-slide[data-kind="smartphones"] .slide-visual img { transform: rotate(70deg) scale(0.82) translateY(-10rem); }
 
     /* Gallery sizing */
     .accessories-gallery {
@@ -1191,14 +1325,27 @@ body.modal-open {
       padding-bottom: 32px;
     }
 
-    /* Repair slider on mobile: landscape-style, full width */
+    /* Repair slider on mobile: taller, better image fit */
+    .repair { height: auto; min-height: 100svh; }
     .repair .swiper {
       --swiper-navigation-size: 22px;
-      height: 50vh;
+      height: 70vh;
     }
     .repair .swiper-slide {
       width: 95%;
-      height: 40vh;
+      height: 64vh;
+      padding-bottom: 2.4rem; /* extra space for lowered button */
+    }
+    .repair .repair-slider { margin: 5rem auto 0; }
+    .repair .slide-visual img { max-width: 58%; max-height: 48%; }
+    /* Mobile: smartphones image smaller and lifted to avoid right edge cut */
+    .repair .swiper-slide[data-kind="smartphones"] .slide-visual img {
+      transform: rotate(70deg) scale(0.74) translateY(-3rem);
+    }
+    .repair .btn { bottom: 0.2rem; }
+    /* Smartphones slide: keep rotation/scale and lift on mobile */
+    .repair .swiper-slide[data-kind="smartphones"] .slide-visual img {
+      transform: rotate(70deg) scale(0.82) translateY(-3rem);
     }
 
     /* Gallery cards on mobile */

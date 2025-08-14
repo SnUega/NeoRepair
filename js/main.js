@@ -365,16 +365,21 @@
         pe = 'none';
       }
 
-    if (window.gsap) {
+      if (window.gsap) {
       if (window.CustomEase && !gsap.parseEase('gallerySoft')) {
         window.CustomEase.create('gallerySoft', 'M0,0 C0.08,0 0.12,0.02 0.16,0.06 0.24,0.14 0.3,0.26 0.38,0.38 0.46,0.5 0.55,0.64 0.66,0.76 0.76,0.88 0.88,0.96 1,1');
       }
-        const tl = gsap.timeline({ defaults: { ease: 'power2.inOut' } });
-        tl.to(card, { '--dx': `${dx}px`, '--dy': `${dy}px`, duration: 1.2, ease: 'gallerySoft' }, 0)
-          .to(card, { opacity, filter: z === 2 ? 'brightness(0.9)' : 'none', duration: 1.2, ease: 'gallerySoft' }, 0);
+          const tl = gsap.timeline({ defaults: { ease: 'power2.inOut' } });
+          const targetScale = (pos === 0) ? 1.3 : (Math.abs(pos) === 1 ? 0.95 : 0.85);
+          const targetBright = (pos === 0) ? 1 : (Math.abs(pos) === 1 ? 0.9 : 0.85);
+          tl.to(card, { '--dx': `${dx}px`, '--dy': `${dy}px`, duration: 1.2, ease: 'gallerySoft' }, 0)
+            .to(card, { '--scale': targetScale, duration: 1.2, ease: 'gallerySoft' }, 0)
+            .to(card, { '--bright': targetBright, opacity, duration: 1.2, ease: 'gallerySoft' }, 0);
       } else {
         card.style.setProperty('--dx', `${dx}px`);
         card.style.setProperty('--dy', `${dy}px`);
+          const targetScale = (pos === 0) ? 1.3 : (Math.abs(pos) === 1 ? 0.95 : 0.85);
+          card.style.setProperty('--scale', String(targetScale));
         card.style.opacity = String(opacity);
       }
       card.style.zIndex = String(z);
@@ -406,6 +411,7 @@
     if (!track) return;
     let startX = 0;
     let delta = 0;
+    let dragging = false;
     track.addEventListener('pointerdown', (e) => {
       // Ignore when clicking interactive elements so clicks work (desktop)
       if (e.button !== undefined && e.button !== 0) return;
@@ -416,14 +422,21 @@
       }
       startX = e.clientX;
       delta = 0;
+      dragging = true;
+      track.classList.add('is-dragging');
+      try { e.preventDefault(); } catch (_) {}
       try { track.setPointerCapture?.(e.pointerId); } catch (_) {}
     });
     track.addEventListener('pointermove', (e) => { if (!startX) return; delta = e.clientX - startX; });
     track.addEventListener('pointerup', (e) => {
       try { track.releasePointerCapture?.(e.pointerId); } catch (_) {}
       if (Math.abs(delta) > 40) move(delta < 0 ? 1 : -1);
+      dragging = false;
+      track.classList.remove('is-dragging');
       startX = 0; delta = 0;
     });
+    track.addEventListener('pointercancel', () => { dragging = false; track.classList.remove('is-dragging'); startX = 0; delta = 0; });
+    track.addEventListener('mouseleave', () => { if (!dragging) return; dragging = false; track.classList.remove('is-dragging'); startX = 0; delta = 0; });
   })();
 
   // Open products modal from category card
@@ -612,15 +625,30 @@ qsa('.modal .modal-close').forEach((btn) => {
     btn.style.setProperty('--x', `${e.clientX - r.left}px`);
     btn.style.setProperty('--y', `${e.clientY - r.top}px`);
   }, { passive: true });
+  document.addEventListener('mouseenter', (e) => {
+    const btn = e.target.closest('.btn');
+    if (!btn) return;
+    const r = btn.getBoundingClientRect();
+    // Initialize ripple origin to cursor position on entry
+    btn.style.setProperty('--x', `${(e.clientX ?? (r.left + r.width/2)) - r.left}px`);
+    btn.style.setProperty('--y', `${(e.clientY ?? (r.top + r.height/2)) - r.top}px`);
+  }, true);
 
-  // Ripple origin for lang and phone buttons too
-  document.addEventListener('mousemove', (e) => {
-    const el = e.target.closest('.lang-btn, .cta-phone');
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    el.style.setProperty('--x', `${e.clientX - r.left}px`);
-    el.style.setProperty('--y', `${e.clientY - r.top}px`);
-  }, { passive: true });
+    // Ripple origin for lang and phone buttons too
+    document.addEventListener('mousemove', (e) => {
+      const el = e.target.closest('.lang-btn, .cta-phone');
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      el.style.setProperty('--x', `${e.clientX - r.left}px`);
+      el.style.setProperty('--y', `${e.clientY - r.top}px`);
+    }, { passive: true });
+    document.addEventListener('mouseenter', (e) => {
+      const el = e.target.closest('.lang-btn, .cta-phone');
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      el.style.setProperty('--x', `${(e.clientX ?? (r.left + r.width/2)) - r.left}px`);
+      el.style.setProperty('--y', `${(e.clientY ?? (r.top + r.height/2)) - r.top}px`);
+    }, true);
 
   // Swipe support for Swiper already included by Swiper itself
 })();
