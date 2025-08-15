@@ -6,6 +6,9 @@
     <title>NeoService — Gadget Repair & Accessories</title>
     <meta name="description" content="Fast gadget repair service plus a curated store of adapters and accessories. Free diagnostics, warranty, home service, original parts." />
 
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Unbounded:200,300,regular,500,600,700,800,900" rel="stylesheet" />
+    
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <!-- AOS CSS (optional) -->
@@ -53,20 +56,20 @@
           <img src="./img/logo.PNG" alt="NeoService" />
         </a>
         <div class="menu-left">
-          <h2>Меню</h2>
+          <h2 data-i18n="menu.title">Menu</h2>
           <ul>
-            <li><a class="nav-link" href="#home" data-hover="Главная">Главная</a></li>
-            <li><a class="nav-link" href="#repair" data-hover="Ремонт">Ремонт</a></li>
-            <li><a class="nav-link" href="#store" data-hover="Магазин">Магазин</a></li>
-            <li><a class="nav-link" href="#about" data-hover="О нас">О нас</a></li>
-            <li><a class="nav-link" href="#contacts" data-hover="Контакты">Контакты</a></li>
+            <li><a class="nav-link" href="#home" data-i18n="menu.general">General</a></li>
+            <li><a class="nav-link" href="#repair" data-i18n="menu.repair">Repair</a></li>
+            <li><a class="nav-link" href="#store" data-i18n="menu.store">Store</a></li>
+            <li><a class="nav-link" href="#about" data-i18n="menu.about">About us</a></li>
+            <li><a class="nav-link" href="#contacts" data-i18n="menu.contacts">Contacts</a></li>
           </ul>
           <div class="menu-divider"></div>
           <div class="menu-contacts">
-            <h4>Телефон</h4>
+            <h4 data-i18n="menu.phone">Phone</h4>
             <p><a href="tel:+37360504199">+373-605-04-199</a></p>
-            <h4>Адрес</h4>
-            <p>City, Main Street, 42</p>
+            <h4 data-i18n="menu.address">Address</h4>
+            <p data-i18n="menu.address_value">City, Main Street, 42</p>
           </div>
         </div>
       </div>
@@ -78,10 +81,10 @@
         <!-- Hero -->
         <section class="section hero" aria-label="Hero">
           <div class="hero-inner">
-            <h1 class="hero-title">Fast, reliable gadget repair.</h1>
-            <p class="hero-sub">Original parts, skilled techs, and a full store of adapters & accessories.</p>
+            <h1 class="hero-title" data-i18n="hero.title">Your Tech, Restored. Your Life, Uninterrupted.</h1>
+            <p class="hero-sub" data-i18n="hero.subtitle">Seamless Solutions for Every Device.</p>
             <div class="hero-actions">
-              <button class="btn primary" data-open="feedback-modal"><span>Get a quote</span></button>
+              <button class="btn primary" data-open="feedback-modal"><span data-i18n="hero.cta">Get a quote</span></button>
             </div>
           </div>
           <!-- Background placeholders: -->
@@ -94,26 +97,26 @@
         <!-- Repair Slider -->
         <section id="repair" class="section repair">
           <div class="section-heading">
-            <h2>Repair</h2>
+            <h2 data-i18n="repair.title">Repair</h2>
           </div>
           <div class="repair-slider">
             <div class="swiper repair-swiper">
               <div class="swiper-wrapper">
                 <div class="swiper-slide" data-kind="smartphones">
                   <div class="slide-visual phone-slide"><img src="./img/mobile-slide.png" alt="Smartphones" /></div>
-                  <button class="btn ghost" data-open="feedback-modal">Fix my phone</button>
+                  <button class="btn ghost" data-open="feedback-modal" data-i18n="repair.cta.phone">Fix my phone</button>
                 </div>
                 <div class="swiper-slide" data-kind="tablets">
                   <div class="slide-visual"><img src="./img/tablet-slide.png" alt="Tablets" /></div>
-                  <button class="btn ghost" data-open="feedback-modal">Fix my tablet</button>
+                  <button class="btn ghost" data-open="feedback-modal" data-i18n="repair.cta.tablet">Fix my tablet</button>
                 </div>
                 <div class="swiper-slide" data-kind="laptops">
                   <div class="slide-visual"><img src="./img/laptop-slide.png" alt="Laptops" /></div>
-                  <button class="btn ghost" data-open="feedback-modal">Fix my laptop</button>
+                  <button class="btn ghost" data-open="feedback-modal" data-i18n="repair.cta.laptop">Fix my laptop</button>
                 </div>
                 <div class="swiper-slide" data-kind="computers">
                   <div class="slide-visual"><img src="./img/computer-slide.png" alt="Computers" /></div>
-                  <button class="btn ghost" data-open="feedback-modal">Fix my PC</button>
+                  <button class="btn ghost" data-open="feedback-modal" data-i18n="repair.cta.pc">Fix my PC</button>
                 </div>
               </div>
               <div class="swiper-pagination"></div>
@@ -127,11 +130,15 @@
         <section id="store" class="section store">
           <div class="store-intro">
             <div class="store-intro-media" aria-hidden="true">
-              <img src="https://images.unsplash.com/photo-1526401281623-359c1a163dac?w=900&q=70&auto=format&fit=crop" alt="Adapters & accessories" />
+              <img src="./img/about-intro-1.png.png" alt="Adapters & accessories" />
             </div>
             <div class="store-intro-text">
-              <h2>Adapters & Accessories</h2>
-              <p>Shop essentials for your devices: chargers, cables, cases, audio, and more. Handpicked, tested, and warrantied for your peace of mind.</p>
+              <h2 data-i18n="store.intro.title">Elevate Your Tech: Premium Accessories & Essential Components</h2>
+              <p data-i18n="store.intro.body">Welcome to our comprehensive online store, your ultimate destination for high-quality 
+                gadget accessories and essential repair components. We understand that your devices 
+                are integral to your daily life, and protecting them, enhancing their functionality, or
+                bringing them back to peak performance is paramount. That's why we've meticulously curated
+                a diverse selection of products designed to meet every need of the modern tech user.</p>
             </div>
           </div>
 
@@ -150,8 +157,14 @@
         <section id="about" class="section about">
           <div class="about-intro">
             <div class="about-intro-text">
-              <h2>About Us</h2>
-              <p>We are certified technicians with thousands of successful repairs. We diagnose for free, use original parts, and back our work with a 24-month warranty.</p>
+              <h2 data-i18n="about.intro.title">Our Story: Passion for Tech, Commitment to You</h2>
+              <p data-i18n="about.intro.body">At Neoconsult, our journey began with a simple yet profound passion: a deep appreciation 
+                for technology and a steadfast commitment to keeping your digital life running smoothly. 
+                In an era where smartphones, tablets, laptops, and computers are not just tools but extensions 
+                of ourselves, we understand the frustration and disruption that a malfunctioning device can 
+                cause. This understanding is the cornerstone of our mission: to provide reliable, efficient, 
+                and accessible gadget repair services and high-quality accessories that empower you to stay 
+                connected, productive, and entertained.</p>
             </div>
             <div class="about-intro-media" aria-hidden="true">
               <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=70&auto=format&fit=crop" alt="Our lab" />
@@ -159,39 +172,37 @@
           </div>
 
           <ul class="features">
-            <li><span class="icon" data-emoji="🔍"></span><span>Free diagnostics</span></li>
-            <li><span class="icon" data-emoji="🛡️"></span><span>2-year warranty</span></li>
-            <li><span class="icon" data-emoji="🏠"></span><span>Home service</span></li>
-            <li><span class="icon" data-emoji="👨‍🔧"></span><span>Best specialists</span></li>
-            <li><span class="icon" data-emoji="✨"></span><span>Original spare parts</span></li>
-            <li><span class="icon" data-emoji="⚙️"></span><span>Advanced support</span></li>
+            <li><span class="icon" data-emoji="🔍"></span><span data-i18n="features.free_diag">Free diagnostics</span></li>
+            <li><span class="icon" data-emoji="🛡️"></span><span data-i18n="features.warranty">2-year warranty</span></li>
+            <li><span class="icon" data-emoji="🏠"></span><span data-i18n="features.home_service">Home service</span></li>
+            <li><span class="icon" data-emoji="👨‍🔧"></span><span data-i18n="features.specialists">Best specialists</span></li>
+            <li><span class="icon" data-emoji="✨"></span><span data-i18n="features.original_parts">Original spare parts</span></li>
+            <li><span class="icon" data-emoji="⚙️"></span><span data-i18n="features.support">Advanced support</span></li>
           </ul>
 
           <div id="promotions" class="promo-banner" role="img" aria-label="Promotional banner">
-            <div class="promo-content">
-              <strong>Seasonal Offer:</strong> 10% off screen replacements this month.
-            </div>
+            <div class="promo-content" data-i18n="promotions.banner"><strong>Seasonal Offer:</strong> 10% off screen replacements this month.</div>
           </div>
         </section>
 
         <!-- Contacts -->
         <section id="contacts" class="section contacts">
           <div class="contact-form-block">
-            <h2>Get in touch</h2>
+            <h2 data-i18n="contacts.title">Get in touch</h2>
             <form id="feedback-form" class="feedback-form" novalidate>
               <label>
-                <span>Name</span>
+                <span data-i18n="form.name">Name</span>
                 <input type="text" name="name" required maxlength="60" />
               </label>
               <label>
-                <span>Phone</span>
+                <span data-i18n="form.phone">Phone</span>
                 <input type="tel" name="phone" required maxlength="20" />
               </label>
               <label>
-                <span>Short description</span>
-                <textarea name="desc" rows="3" maxlength="70" placeholder="Up to 70 characters"></textarea>
+                <span data-i18n="form.desc">Short description</span>
+                <textarea name="desc" rows="3" maxlength="70" data-i18n-placeholder="form.placeholder" placeholder="Up to 70 characters"></textarea>
               </label>
-              <button type="submit" class="btn primary"><span>Send</span></button>
+              <button type="submit" class="btn primary"><span data-i18n="form.send">Send</span></button>
             </form>
           </div>
         </section>
@@ -206,7 +217,7 @@
         </a>
         <p class="copyright">© <span id="year"></span> NeoService. All rights reserved.</p>
         <a class="footer-phone" href="tel:+37360504199">+373-605-04-199</a>
-        <button class="btn ghost" data-open="feedback-modal"><span>Feedback</span></button>
+        <button class="btn ghost" data-open="feedback-modal"><span data-i18n="footer.feedback">Feedback</span></button>
       </div>
     </footer>
 
@@ -215,21 +226,21 @@
       <div class="modal-backdrop" data-close></div>
       <div class="modal-window glass">
         <button class="modal-close" aria-label="Close" data-close>&times;</button>
-        <h3 id="feedback-title">Feedback</h3>
+        <h3 id="feedback-title" data-i18n="modal.feedback.title">Feedback</h3>
         <form id="feedback-modal-form" class="feedback-form" novalidate method="POST">
           <label>
-            <span>Name</span>
+            <span data-i18n="form.name">Name</span>
             <input type="text" name="name" required maxlength="60" />
           </label>
           <label>
-            <span>Phone</span>
+            <span data-i18n="form.phone">Phone</span>
             <input type="tel" name="phone" required maxlength="20" />
           </label>
           <label>
-            <span>Short description</span>
-            <textarea name="desc" rows="3" maxlength="70" placeholder="Up to 70 characters"></textarea>
+            <span data-i18n="form.desc">Short description</span>
+            <textarea name="desc" rows="3" maxlength="70" data-i18n-placeholder="form.placeholder" placeholder="Up to 70 characters"></textarea>
           </label>
-          <button type="submit" class="btn primary"><span>Send</span></button>
+          <button type="submit" class="btn primary"><span data-i18n="form.send">Send</span></button>
         </form>
       </div>
     </div>
@@ -240,11 +251,11 @@
       <div class="modal-window glass confirm-window">
         <button class="modal-close" aria-label="Close" data-close>&times;</button>
         <div class="confirm-content">
-          <h3 id="confirm-title">Thank you!</h3>
-          <p>A manager will contact you within 5–10 minutes.</p>
+          <h3 id="confirm-title" data-i18n="confirm.title">Thank you!</h3>
+          <p data-i18n="confirm.desc">A manager will contact you within 5–10 minutes.</p>
           <button class="confirm-close" id="confirm-close" aria-label="Close">
             <span class="progress-ring" id="progress-ring"></span>
-            <span class="confirm-close-label">Close</span>
+            <span class="confirm-close-label" data-i18n="confirm.close">Close</span>
           </button>
         </div>
       </div>
@@ -255,7 +266,7 @@
       <div class="modal-backdrop" data-close></div>
       <div class="modal-window glass products-window">
         <button class="modal-close" aria-label="Close" data-close>&times;</button>
-        <h3 id="products-title">Products</h3>
+        <h3 id="products-title" data-i18n="products.title">Products</h3>
         <div class="swiper products-swiper">
           <div class="swiper-wrapper" id="products-swiper-wrapper"></div>
           <div class="swiper-button-prev"></div>

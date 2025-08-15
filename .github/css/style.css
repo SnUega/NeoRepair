@@ -26,6 +26,7 @@
     --glass-bg: rgba(0, 0, 0, 0.04);
     --glass-stroke: rgba(0, 0, 0, 0.12);
     --ring: rgba(255, 47, 47, 0.6);
+    --index: calc(1vw + 1vh);
   }
 
   /* New header (from narabotky) */
@@ -69,7 +70,7 @@
   .burger__line {
     width: 45px;
     height: 4px;
-    background: #ff2f2f;
+    background: #A8A8A8;
     border-radius: 2px;
     transition: transform 0.4s ease, opacity 0.3s ease, width 0.4s ease;
     transform-origin: center center;
@@ -100,6 +101,8 @@
     visibility: hidden;
   }
   .menu-container.active { height: 75vh; visibility: visible; pointer-events: auto; }
+  @media (min-width: 1441px) { .menu-container.active { height: calc(75vh + 2vh); } }
+  @media (min-width: 1024px) and (max-width: 1440px) { .menu-container.active { height: calc(75vh + 2vh); } }
   .menu-line {
     position: absolute;
     top: 0;
@@ -118,12 +121,14 @@
   @keyframes shrinkLine { from { height: 70vh; } to { height: 0; } }
   .menu-inner {
     width: 100%;
-    height: 70vh;
+    height: 100%;
     display: flex;
     justify-content: center;
     padding: 40px 60px 60px;
     opacity: 1;
     overflow: hidden;
+    font-family: 'Unbounded';
+    font-size: calc(var(--index) * 0.66);
     /* Reveal from center slit without scaling content */
     clip-path: polygon(50% 0, 50% 0, 50% 100%, 50% 100%);
     transition: clip-path 1.4s cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -162,14 +167,14 @@
   .menu-left ul { 
     list-style: none; 
     padding: 0; 
-    margin: 0; 
-    width: min(420px, 80%); 
-    letter-spacing: 6px;
+    margin: 0;
+    margin-bottom: 1rem; 
+    width: min(420px, 80%);  
   }
   .menu-left li { 
     margin: 0; 
     padding: 12px 0; 
-    overflow: hidden; 
+    overflow: hidden;
   }
   .menu-left li:not(:first-child) { 
     border-top: 1px solid rgba(255, 47, 47,0.15); 
@@ -184,17 +189,23 @@
 
   .menu-left a:before, .menu-left a:after { content: none; }
   .menu-left li:hover a { transform: none; }
-  .menu-divider { width: min(420px, 80%); height: 1px; background: rgba(0,0,0,0.2); margin: 2rem 0; }
+  .menu-divider { width: min(420px, 120%); height: 1px; background: rgba(0,0,0,0.2); margin-bottom: 1.5rem; }
   .menu-contacts { 
     text-align: center; 
   }
-  .menu-contacts h4 { margin: 18px 0 6px; display: inline; margin-right: 14px; }
+  .menu-contacts h4 { display: inline;}
   .menu-contacts h4 + p { display: inline; white-space: nowrap; }
   .menu-contacts p { margin: 0 0 8px; color: var(--muted); }
   .menu-contacts p + h4 { display: block; margin-top: 8px; }
   .menu-contacts p { display: inline-block; text-align: center; }
-  .menu-logo { position: absolute; top: 65px; left: 60px; display: inline-flex; align-items: center; }
+  .menu-logo { position: absolute; top: 65px; display: inline-flex; align-items: center; }
   .menu-logo img { height: 56px; }
+
+  /* Center menu logo above the "Меню" heading on tablets, MacBooks, and desktop */
+  @media (min-width: 769px) {
+    .menu-logo { left: 50%; top: 32px; transform: translateX(-50%); }
+    .menu-left h2 { margin-top: 62px; }
+  }
 
   /* Cascade content appearance after panel reveal */
   .menu-left h2,
@@ -222,7 +233,7 @@
 
   /* Language dropdown + phone button (reused from previous header) */
   .lang-switch { position: relative; display: inline-block; }
-  .lang-btn { width: 40px; height: 40px; border-radius: 50%; border: 1px solid #000000; background: var(--accent); color: #000000; }
+  .lang-btn { width: 40px; height: 40px; border-radius: 50%; border: 1px solid #000000; background: transparent; color: #000000; }
   .lang-btn.is-active, .lang-btn:hover { background: #ffffff; color: #ff2f2f; border: 1px solid #ff2f2f;}
   /* Animated dropdown emerging from the button */
   .lang-list {
@@ -267,7 +278,7 @@
   .lang-list li { padding: 6px 10px; border-radius: 8px; cursor: pointer; color: var(--accent); text-align: center; }
   .lang-list li:hover { background: var(--accent); color: #ffffff; border: 1px solid #ff2f2f;}
   .lang-switch.open .lang-list { pointer-events: auto; }
-  .cta-phone { display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid #000000; background: var(--accent); color: #000000;margin-left: 1rem; margin-right: 2rem;}
+  .cta-phone { display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid #000000; background: transparent; color: #000000;margin-left: 1rem; margin-right: 2rem;}
   .cta-phone:hover { background: #ffffff; color: #ff2f2f; border: 1px solid #ff2f2f; }
   .cta-phone svg { width: 40px; height: 40px; padding: 10px; border-radius: 50%; background: transparent; transform-origin: center; color: #000000; fill: currentColor; }
   .cta-phone:hover svg { color: #ff2f2f; }
@@ -367,6 +378,7 @@ body {
     backdrop-filter: blur(8px);
     position: relative;
     overflow: hidden;
+    z-index: 0;
   }
 
   /* Feedback button: text and border turn accent on mask */
@@ -428,6 +440,8 @@ body {
 .contacts .btn.primary:hover,
 .modal .btn.primary:hover { color: #ffffff; border-color: #ff2f2f; }
 
+  /* Press radial fill removed */
+
 /* Form buttons sizing and centering */
 .contacts .btn.primary {
   margin-top: 1.2rem;
@@ -469,7 +483,7 @@ body {
     margin: 2rem auto;
     max-width: 1200px;
     padding: 0 0;
-    font-size: 32px;
+    font-size: calc(var(--index) * 1.2);
     text-align: center;
     color: #ffffff;
   }
@@ -481,6 +495,7 @@ body {
     position: relative;
     overflow: hidden;
     padding-bottom: 48px;
+    font-family: 'Montserrat';
   }
   
   .hero-inner {
@@ -493,6 +508,7 @@ body {
     font-size: clamp(32px, 4.6vw, 56px);
     line-height: 1.05;
     margin: 0 0 10px;
+    letter-spacing: 2px;
   }
   
   .hero-sub {
@@ -502,7 +518,7 @@ body {
   }
   /* Repair Slider */
 .repair {
-  background: rgba(255, 47, 47, 0.92);;
+  background: rgba(82, 82, 82, 0.3);
   height: 100vh;
 }
 
@@ -549,28 +565,39 @@ body.modal-open {
   max-width: min(780px, 72%);
   max-height: 72%;
   object-fit: contain;
+  transform-origin: center center;
   }
 
 /* Tablets slide: rotate 90deg CCW across all devices */
 .repair .swiper-slide[data-kind="tablets"] .slide-visual img {
-  transform: rotate(-90deg) scale(0.9);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(310deg) scale(0.9);
   transition: transform 0.5s ease;
   will-change: transform;
 }
 
 /* Style first slide (smartphones): rotate and scale down to match others */
 .repair .swiper-slide[data-kind="smartphones"] .slide-visual img {
-  transform: rotate(70deg) scale(0.82) translateY(-14rem) translateX(-2rem);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(70deg) scale(0.82);
   transition: transform 0.5s ease;
   will-change: transform;
 }
   
-.repair h3 {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
+.repair h2 {
   margin: 0;
+  font-family: 'Unbounded';
+  letter-spacing: 4px;
+  font-size: calc(var(--index) * 2.1);
+}
+
+/* Increase Repair heading size overriding generic section heading */
+.section.repair .section-heading h2 {
+  font-size: calc(var(--index) * 2.1);
 }
   
 .repair p {
@@ -585,12 +612,65 @@ body.modal-open {
 .repair .btn {
   position: absolute;
   left: 50%;
-  padding: 20px 15px;
+  padding: 16px 14px;
   transform: translateX(-50%);
   bottom: 1.2rem;
-  background: transparent !important;
-  color: #000000 !important;
-  border: 1px solid #000000 !important;
+  background: rgba(255, 255, 255, 0.25);
+  color: #ffffff !important;
+  border: 1px solid #ffffff !important;
+  border-radius: 25px;
+  font-family: 'Montserrat';
+  font-weight: 600;
+}
+
+/* Hover shine + subtle scale for gallery 'View' and slider 'Fix my …' buttons */
+.acc-card .btn.ghost {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s ease;
+  backface-visibility: hidden;
+  will-change: transform;
+  color: #ffffff;
+  border-color: #ffffff;
+  font-family: 'Montserrat';
+}
+.repair .btn.ghost {
+  /* keep absolute positioning from .repair .btn; only add effects */
+  overflow: hidden;
+  transition: transform 0.25s ease;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+.acc-card .btn.ghost::after,
+.repair .btn.ghost::after {
+  content: '';
+  position: absolute;
+  inset: -60%;
+  background: linear-gradient(120deg, rgba(255,255,255,0) 35%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0) 65%);
+  transform: translateX(-120%) rotate(10deg);
+  transition: transform 0.8s ease;
+  pointer-events: none;
+}
+.acc-card .btn.ghost:hover { transform: scale(1.04); }
+.repair .btn.ghost:hover { transform: translateX(-50%) translateY(0) scale(1.04); }
+.acc-card .btn.ghost:hover::after,
+.repair .btn.ghost:hover::after,
+.acc-card .btn.ghost:focus-visible::after,
+.repair .btn.ghost:focus-visible::after {
+  transform: translateX(120%) rotate(10deg);
+}
+.acc-card .btn.ghost:active { transform: scale(0.995); }
+.repair .btn.ghost:active { transform: translateX(-50%) translateY(0) scale(0.995); }
+
+/* Repair slider: delayed appear of slide button near transition end */
+.repair .swiper-slide .btn {
+  opacity: 0;
+  transform: translateX(-50%) translateY(-12px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.repair .swiper-slide.is-btn-visible .btn {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 .repair .swiper-pagination {
@@ -615,6 +695,7 @@ body.modal-open {
     grid-template-columns: 35vh 1fr;
     gap: 18px;
     align-items: center;
+    font-family: 'Montserrat';
   }
   
   .store .store-intro-media {
@@ -634,6 +715,8 @@ body.modal-open {
     padding: 2.5rem;
     margin: 2.5rem;
   }
+  /* Raise only the text block in store intro */
+  .store .store-intro-text { margin-top: calc(var(--index) * -0.9); }
   
   .store .store-intro-text h2 {
     margin: 0 0 8px;
@@ -643,24 +726,27 @@ body.modal-open {
     margin: 0;
     color: var(--muted);
   }
+  /* Raise only the text block in about intro */
+  .about .about-intro-text { margin-top: calc(var(--index) * -0.9); }
   
   /* Accessories Gallery */
 .accessories-gallery {
   position: relative;
   max-width: 75vw;
   max-height: 65vh;
-  margin: 48px auto;
+  margin: 96px auto;
   display: grid;
   grid-template-columns: 48px 1fr 48px;
   align-items: center;
   gap: 16px;
+  overscroll-behavior-x: contain;
 }
   
 .gallery-track {
   position: relative;
   height: 55vh;
   overflow: visible;
-  touch-action: pan-y;
+  touch-action: pan-x;
   cursor: grab;
 }
   
@@ -693,6 +779,20 @@ body.modal-open {
   to { transform: translateX(6px) rotate(var(--rot,45deg)); }
 }
   
+  /* Tablet landscape: push gallery arrows outward slightly more */
+  @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    .accessories-gallery {
+      max-width: 92vw; /* ближе к краям вьюпорта, но оставляем поля */
+      grid-template-columns: minmax(28px, 8.5vw) 1fr minmax(28px, 8.5vw);
+    }
+    .gallery-arrow {
+      position: relative;
+      z-index: 5;
+    }
+    .gallery-arrow.left { transform: translateX(-4px); }
+    .gallery-arrow.right { transform: translateX(4px); }
+  }
+  
 .acc-card {
   position: absolute;
   top: 50%;
@@ -707,6 +807,8 @@ body.modal-open {
   border-radius: 16px;
   border: 1px solid var(--glass-stroke);
   background: rgba(255, 255, 255, 0.4);
+  /* Soft depth (stronger to read on white backgrounds) */
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18), 0 24px 64px rgba(0, 0, 0, 0.12);
   overflow: hidden;
   display: grid;
   grid-template-rows: 1fr auto;
@@ -735,8 +837,10 @@ body.modal-open {
     position: absolute;
     top: 0;
     left: 50%;
+    right: auto;
     transform: translateX(-50%);
-    width: var(--curtain-w, auto);
+    width: max-content;
+    max-width: calc(100% - 24px);
     padding: 8px 12px;
     background: rgba(255, 255, 255, 0.45);
     backdrop-filter: blur(8px);
@@ -748,8 +852,28 @@ body.modal-open {
     z-index: 2;
     display: grid;
     place-items: center;
+    overflow: hidden;
+    box-sizing: border-box;
+    text-align: center;
+    isolation: isolate; /* ensure pseudo-element stays behind text */
   }
-  .acc-card .acc-title-text { margin: 0; line-height: 1.2; white-space: nowrap; }
+  .acc-card .acc-title-text { margin: 0 auto; line-height: 1.2; white-space: nowrap; font-family: 'Montserrat', sans-serif; position: relative; z-index: 1; color: #ffffff; letter-spacing: 0; text-align: center; display: inline-block; }
+  /* Continuous diagonal shine across the glass title badge */
+  .acc-card .acc-title::after {
+    content: '';
+    position: absolute;
+    inset: -60%;
+    background: linear-gradient(120deg, rgba(255,255,255,0) 35%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0) 65%);
+    transform: translateX(-120%) rotate(10deg);
+    animation: titleShine 2.6s linear infinite;
+    pointer-events: none;
+    z-index: -1; /* under text within isolated stacking context */
+  }
+  @keyframes titleShine {
+    0% { transform: translateX(-120%) rotate(10deg); }
+    50% { transform: translateX(120%) rotate(10deg); }
+    100% { transform: translateX(120%) rotate(10deg); }
+  }
   
   .acc-card .acc-info {
     position: absolute;
@@ -770,19 +894,26 @@ body.modal-open {
   
   .acc-card button {
     justify-self: center;
-    background: rgba(255, 255, 255, 0.5);
-    color: #ff2f2f;
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--muted);
+    border-radius: 25px;
+    border: 1px solid transparent;
   }
   
 .acc-card.is-center {
   --scale: 1.3;
   z-index: 3;
+  /* Stronger shadow for the focused card */
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.26), 0 32px 80px rgba(0, 0, 0, 0.18);
 }
   
   .acc-card.is-adjacent {
     --scale: 0.95;
     filter: brightness(0.85);
+    /* Slightly reduced shadow for adjacent cards (still stronger than base) */
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.20), 0 26px 68px rgba(0, 0, 0, 0.14);
   }
+  /* Removed micro-shift: rely on intrinsic centering */
 
 /* Disable transition on initial layout to avoid jump-in */
 .gallery-track.is-initial .acc-card {
@@ -797,7 +928,7 @@ body.modal-open {
   
   /* About */
   .about {
-    background-color: rgba(255, 47, 47, 0.92);;
+    background-color: rgba(82, 82, 82, 0.3);;
     color: #ffffff;
   }
   .about .about-intro {
@@ -807,6 +938,7 @@ body.modal-open {
     grid-template-columns: 1fr 35vh;
     gap: 18px;
     align-items: center;
+    font-family: 'Montserrat';
   }
   
   .about .about-intro-media {
@@ -825,6 +957,8 @@ body.modal-open {
     padding: 2.5rem;
     margin: 2.5rem;
   }
+  /* Raise only the text block in about intro */
+  .about .about-intro-text { margin-top: calc(var(--index) * -0.4); }
   
   .about .about-intro-text p {
     color: #ffffff;
@@ -851,6 +985,7 @@ body.modal-open {
     background: transparent;
     will-change: transform, opacity;
     text-align: center;
+    font-family: 'Unbounded';
   }
   .features li .icon {
     font-size: 0;
@@ -879,6 +1014,7 @@ body.modal-open {
     display: grid;
     place-items: center;
     padding: 12px 16px;
+    font-family: 'Unbounded';
   }
   
   /* Contacts */
@@ -887,6 +1023,7 @@ body.modal-open {
   .feedback-form {
     display: grid;
     gap: 10px;
+    font-family: 'Montserrat';
   }
   
   .feedback-form label {
@@ -930,8 +1067,10 @@ body.modal-open {
     padding: 28px 16px;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
     color: #ffffff;
-    background: rgba(255, 47, 47, 0.95);
+    background: rgba(82, 82, 82, 0.3);
     backdrop-filter: blur(0);
+    font-family: 'Unbounded';
+    font-size: calc(--index * 1.2);
   }
   
   .footer-inner {
@@ -959,10 +1098,11 @@ body.modal-open {
     background: transparent !important;
     color: #ffffff !important;
     border: 1px solid #ffffff !important;
+    font-family: 'Montserrat';
   }
 
   @media (max-width: 680px) {
-    .site-footer .btn.ghost[data-open="feedback-modal"] { top: -2px; }
+    .site-footer .btn.ghost[data-open="feedback-modal"] { top: -10px; right: 0px;  }
   }
 
 /* Footer Feedback button ripple: white fill, red text/border */
@@ -1153,8 +1293,8 @@ body.modal-open {
   /* Swiper overrides */
   .swiper-button-prev,
   .swiper-button-next {
-    color: var(--fg);
-    animation: arrowBreathe 0.8s infinite ease-in-out alternate;
+    color: #fff;
+    animation: arrowBreathe 0.6s infinite ease-in-out alternate;
     transform-origin: center;
   }
   
@@ -1163,12 +1303,53 @@ body.modal-open {
   }
   
   .swiper-pagination-bullet-active {
-    background: #ff2f2f;
+    background: #000;
   }
 
   @keyframes arrowBreathe {
     from { transform: translateX(0); }
-    to { transform: translateX(6px); }
+    to { transform: translateX(10px); }
+  }
+
+  /* Desktop: enlarge smartphones and tablets slide images */
+  @media (min-width: 1201px) {
+    .repair .swiper-slide[data-kind="smartphones"] .slide-visual img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(70deg) scale(0.92);
+    }
+    .repair .swiper-slide[data-kind="tablets"] .slide-visual img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(310deg) scale(1.08);
+    }
+  }
+
+  /* MacBook 1440x900-ish: center the slide button horizontally and slightly enlarge 1st/2nd images */
+  @media (min-width: 1024px) and (max-width: 1440px) {
+    .repair .swiper-slide .btn { left: 50% !important; transform: translateX(-50%); }
+    .repair .swiper .swiper-pagination,
+    .repair .repair-swiper .swiper-pagination {
+      position: relative !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      margin-left: 0 !important;
+      right: auto !important;
+    }
+    .repair .swiper-slide[data-kind="smartphones"] .slide-visual img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(70deg) scale(0.88);
+    }
+    .repair .swiper-slide[data-kind="tablets"] .slide-visual img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(310deg) scale(1.02);
+    }
   }
   
   /* Responsive */
@@ -1206,7 +1387,10 @@ body.modal-open {
     .menu-container {
       width: 70%;
       left: 15%;
-      height: 80vh;
+      height: 95vh;
+    }
+    .menu-inner {
+      height: 90vh;
     }
 
     /* Repair slider sizing */
@@ -1214,8 +1398,8 @@ body.modal-open {
     .repair .swiper { height: 65vh; }
     .repair .swiper-slide { width: 85%; height: 55vh; }
     .repair .slide-visual img { max-width: 75%; max-height: 75%; }
-    /* Tablets: lift smartphones image by ~10rem */
-    .repair .swiper-slide[data-kind="smartphones"] .slide-visual img { transform: rotate(70deg) scale(0.82) translateY(-10rem); }
+    /* Tablets: center smartphones image */
+    .repair .swiper-slide[data-kind="smartphones"] .slide-visual img { position:absolute; top:50%; left:50%; transform: translate(-50%, -50%) rotate(70deg) scale(0.82); }
 
     /* Gallery sizing */
     .accessories-gallery {
@@ -1300,8 +1484,15 @@ body.modal-open {
       pointer-events: none;
     }
     .menu-container.active {
-      height: 95vh;
+      height: 75vh;
       pointer-events: auto;
+    }
+    /* Ensure inner border isn't visually clipped at corners on mobile */
+    .menu-inner {
+      height: calc(100% - 2px);
+      margin: 1px;
+      border-radius: 49px;
+      font-size: calc(var(--index) * 1.3);
     }
     .menu-logo {
         left: 25%;
@@ -1325,28 +1516,67 @@ body.modal-open {
       padding-bottom: 32px;
     }
 
+    /* Make Repair section shrink-to-content on mobile to remove extra bottom space */
+    .section.repair {
+      min-height: auto !important;
+      height: auto !important;
+      padding-bottom: 0.75rem;
+    }
+
     /* Repair slider on mobile: taller, better image fit */
     .repair { height: auto; min-height: 100svh; }
+    .repair .section-heading h2 { margin-bottom: 0; }
     .repair .swiper {
       --swiper-navigation-size: 22px;
       height: 70vh;
+      position: relative; /* ensure abs pagination anchors here */
     }
     .repair .swiper-slide {
       width: 95%;
       height: 64vh;
-      padding-bottom: 2.4rem; /* extra space for lowered button */
+      padding-bottom: 1.2rem; /* tighter space below content */
     }
-    .repair .repair-slider { margin: 5rem auto 0; }
+    .repair .repair-slider { margin: -8rem auto 0; }
+    .repair .swiper { padding-top: 0; }
+    .section.repair { padding-top: 1.8rem; }
+    .repair .section-heading h2 { margin-top: calc(var(--index) * 3); }
     .repair .slide-visual img { max-width: 58%; max-height: 48%; }
-    /* Mobile: smartphones image smaller and lifted to avoid right edge cut */
+    /* Mobile: center smartphones image and shrink a bit to avoid cutting */
     .repair .swiper-slide[data-kind="smartphones"] .slide-visual img {
-      transform: rotate(70deg) scale(0.74) translateY(-3rem);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(70deg) scale(0.7);
     }
-    .repair .btn { bottom: 0.2rem; }
-    /* Smartphones slide: keep rotation/scale and lift on mobile */
-    .repair .swiper-slide[data-kind="smartphones"] .slide-visual img {
-      transform: rotate(70deg) scale(0.82) translateY(-3rem);
+    .repair .btn { bottom: 8.95rem !important; padding-top: 16px; padding-bottom: 16px; }
+    /* Ensure pagination visible and centered above bottom edge */
+    .repair .swiper .swiper-pagination,
+    .repair .repair-swiper .swiper-pagination {
+      position: absolute !important;
+      bottom: 2.8rem !important;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0 !important;
+      right: auto !important;
+      z-index: 4;
     }
+
+    /* Increase selector specificity for the slide button */
+    .repair .swiper-slide .btn {
+      bottom: 5rem !important;
+      padding-top: 16px;
+      padding-bottom: 16px;
+    }
+    /* Mobile: enlarge all images except the first (smartphones) */
+    .repair .swiper-slide:not([data-kind="smartphones"]) .slide-visual img {
+      max-width: 70%;
+      max-height: 60%;
+    }
+    /* Mobile: bump tablets scale a bit while keeping rotation */
+    .repair .swiper-slide[data-kind="tablets"] .slide-visual img {
+      transform: translate(-50%, -50%) rotate(310deg) scale(1.05);
+    }
+    /* (duplicate rule unified above) */
 
     /* Gallery cards on mobile */
     .acc-card {
